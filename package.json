@@ -1,0 +1,28 @@
+{
+  "name": "chat_project_be",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode=development",
+    "start": "node ./build/index.js",
+    "test": "mocha"
+  },
+  "author": "Ivan",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/cli": "7.7.7",
+    "@babel/core": "7.7.7",
+    "@babel/plugin-proposal-class-properties": "7.7.4",
+    "@babel/preset-env": "7.7.7",
+    "babel-loader": "8.0.6",
+    "chai": "4.2.0",
+    "express": "4.17.1",
+    "mocha": "6.2.2",
+    "mongoose": "5.8.4",
+    "socket.io": "^2.3.0",
+    "uws": "^10.148.1",
+    "webpack": "4.41.4",
+    "webpack-cli": "3.3.10"
+  }
+}
