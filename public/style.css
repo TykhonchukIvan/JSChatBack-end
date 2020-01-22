@@ -2,6 +2,9 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  background-image: url(images/fon2.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 .header {
   width: 910px;
@@ -14,7 +17,7 @@ body {
   margin-top: 5px;
   width: 40px;
   height: 40px;
-  background-image: url(images/logo2.png);
+  background-image: url(images/logo.png);
   background-size: cover;
 }
 .header__name {
@@ -135,7 +138,9 @@ body {
   z-index: 1;
   left: 0;
   top: 0;
-  background-color: #DCF3FC;
+  background-image: url(images/fon2.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
   font-family: Roboto, sans-serif;
   width: 100%;
   height: 100%;
@@ -161,7 +166,7 @@ body {
   margin-top: 5px;
   width: 40px;
   height: 40px;
-  background-image: url(images/logo2.png);
+  background-image: url(images/logo.png);
   background-size: cover;
 }
 .modal-users-header__name {
@@ -237,7 +242,9 @@ body {
   z-index: 1;
   left: 0;
   top: 0;
-  background-color: #dcf3fc;
+  background-image: url(images/fon2.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
   font-family: Roboto, sans-serif;
   width: 100%;
   height: 100%;
@@ -259,7 +266,7 @@ body {
   margin: 5px 0 0 15px;
   width: 40px;
   height: 40px;
-  background-image: url(images/logo2.png);
+  background-image: url(images/logo.png);
   background-size: cover;
 }
 .modal-admin-header__name {
