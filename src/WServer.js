@@ -8,7 +8,7 @@ class WServer {
 
         this._app = new App();
         this._server = http.createServer(null, this._app.getApp());
-        this._io = io(this._server, { serveClient: false });
+        this._io = io(this._server, {serveClient: false});
 
         this._io.on('connection', this.handleCon.bind(this));
         this._online = [];
@@ -18,17 +18,17 @@ class WServer {
     handleCon = socket => {
         this._online.push(socket);
         console.log('----connected');
-        
+
 
         socket.on('message', data => {
             this._io.sockets.emit('message', data);
         });
-        
+
         socket.on('online', data => {
             this._users.push(JSON.parse(data));
 
             let onlineusers = [...this._users];
-            
+
             this._io.sockets.emit('online', JSON.stringify(onlineusers));
         });
 
@@ -38,7 +38,7 @@ class WServer {
             this._online.splice(disconnect, 1);
             this._users.splice(disconnect, 1);
 
-            console.log(this._users,'-------disconnect');
+            console.log(this._users, '-------disconnect');
         });
     }
 
