@@ -12,7 +12,7 @@ class Controller {
 
     searchPerson = data => {
         const persons = this._model.getPerson();
-        let status = false;        
+        let status = false;
 
         persons.forEach(element => {
             this.check = data.name === element.name && data.ip === element.ip;
@@ -30,7 +30,7 @@ class Controller {
         const admin = this._model.getAdmin();
         let status = false;
 
-        admin.forEach(element =>{
+        admin.forEach(element => {
             this.checkAdmin = data.login === element.login && data.password === element.password;
 
             if (this.checkAdmin === true) {

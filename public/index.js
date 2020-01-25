@@ -10498,23 +10498,30 @@ var sendPost = function sendPost(data, cb) {
   };
 
   xhr.send(JSON.stringify(data));
-};
-var sendPostCheckUser = function sendPostCheckUser(data) {
-  var xhr = new XMLHttpRequest();
-  xhr.open('POST', '/checkUser', false);
-  xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-  xhr.send(JSON.stringify(data));
-  var check = JSON.parse(xhr.response);
-  return check;
-};
-var sendPostCheckAdmin = function sendPostCheckAdmin(data) {
-  var xhr = new XMLHttpRequest();
-  xhr.open('POST', '/checkAdmin', false);
-  xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-  xhr.send(JSON.stringify(data));
-  var check = JSON.parse(xhr.response);
-  return check;
-};
+}; // export const  sendPostCheckUser = (data) => {
+//     const xhr = new XMLHttpRequest();
+//
+//     xhr.open('POST', '/checkUser', false);
+//     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+//
+//     xhr.send(JSON.stringify(data));
+//     const check = JSON.parse(xhr.response);
+//
+//     return check;
+// };
+// export const  sendPostCheckAdmin = (data) => {
+//     const xhr = new XMLHttpRequest();
+//
+//     xhr.open('POST', '/checkAdmin', false);
+//     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+//
+//     xhr.send(JSON.stringify(data));
+//     const check = JSON.parse(xhr.response);
+//
+//
+//     return check;
+//
+// };
 // CONCATENATED MODULE: ./src/js/draw-users-online/draw-users-online.js
 var drawUsersOnline = function drawUsersOnline(users) {
   clearUsers();
@@ -10548,28 +10555,35 @@ var clearUsers = function clearUsers() {
     temp[i].remove();
   }
 };
-// CONCATENATED MODULE: ./src/Modal.js
-function Modal_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+// CONCATENATED MODULE: ./src/promiseREST.js
+var sendPostCheckUser = function sendPostCheckUser(data) {
+  return new Promise(function (resolve, reject) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/checkUser', true);
+    xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+    xhr.send(JSON.stringify(data));
 
-function Modal_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var Modal = function Modal() {
-  var _this = this;
-
-  Modal_classCallCheck(this, Modal);
-
-  Modal_defineProperty(this, "setOnline", function (person) {
-    return _this._online.push(person);
+    xhr.onload = function () {
+      var responseSer = JSON.parse(xhr.response);
+      console.log(responseSer);
+      resolve(responseSer);
+    };
   });
-
-  Modal_defineProperty(this, "getOnline", function () {
-    return _this._online;
-  });
-
-  this._online = [];
 };
+var sendPostCheckAdmin = function sendPostCheckAdmin(data) {
+  return new Promise(function (resolve, reject) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/checkAdmin', true);
+    xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+    xhr.send(JSON.stringify(data));
 
-/* harmony default export */ var src_Modal = (Modal);
+    xhr.onload = function () {
+      var responseSer = JSON.parse(xhr.response);
+      console.log(responseSer);
+      resolve(responseSer);
+    };
+  });
+};
 // CONCATENATED MODULE: ./src/js/modal-window/Modal-window.js
 function Modal_window_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -10607,18 +10621,18 @@ var Modal_window_ModalWindows = function ModalWindows() {
         name: _this.UsersVal.value,
         ip: _this._ipAdress
       };
-      var checkUser = sendPostCheckUser(data); // let checkUser = sendForCheck(data);
-
-      if (checkUser.status === true) {
-        _this.modalUser.style.display = 'none';
-        _this.erroeUserImg.style.display = 'none';
-        _this.erroeUserText.style.display = 'none';
-        sendGet(drawUsersOnline); // setInterval(() => {sendGet(drawUsersOnline)}, 2000);
-      } else {
-        _this.modalUser.style.display = 'block';
-        _this.erroeUserImg.style.display = 'block';
-        _this.erroeUserText.style.display = 'block';
-      }
+      sendPostCheckUser(data).then(function (asd) {
+        if (asd.status === true) {
+          _this.modalUser.style.display = 'none';
+          _this.erroeUserImg.style.display = 'none';
+          _this.erroeUserText.style.display = 'none';
+          sendGet(drawUsersOnline);
+        } else {
+          _this.modalUser.style.display = 'block';
+          _this.erroeUserImg.style.display = 'block';
+          _this.erroeUserText.style.display = 'block';
+        }
+      });
     });
   });
 
@@ -10656,15 +10670,24 @@ var Modal_window_ModalWindows = function ModalWindows() {
         login: _this.AdmLogVal.value,
         password: _this.AdmPasVal.value
       };
-      var checkAdmin = sendPostCheckAdmin(data);
-
-      if (checkAdmin.status === true) {
-        document.location.href = './admin/';
-      } else {
-        _this.modalAdmin.style.display = 'block';
-        _this.errorAbminImg.style.display = 'block';
-        _this.errorAdminText.style.display = 'block';
-      }
+      sendPostCheckAdmin(data).then(function (chek) {
+        if (chek.status === true) {
+          document.location.href = './admin/';
+          sendGet(drawUsersOnline);
+        } else {
+          _this.modalAdmin.style.display = 'block';
+          _this.errorAbminImg.style.display = 'block';
+          _this.errorAdminText.style.display = 'block';
+        }
+      }); // let checkAdmin = sendPostCheckAdmin(data);
+      //
+      // if (checkAdmin.status === true) {
+      //     document.location.href = './admin/';
+      // } else {
+      //     this.modalAdmin.style.display = 'block';
+      //     this.errorAbminImg.style.display = 'block';
+      //     this.errorAdminText.style.display = 'block';
+      // }
     });
   });
 
@@ -10685,7 +10708,6 @@ var Modal_window_ModalWindows = function ModalWindows() {
   });
 
   this._io = new src_WSocket();
-  this._modal = new src_Modal();
   this._ipAdress = IP;
   this.AdmBtn = document.getElementById('adm-btn');
   this.AdmBtnClose = document.getElementById('modalAdminClose');
@@ -10700,7 +10722,6 @@ var Modal_window_ModalWindows = function ModalWindows() {
   this.erroeUserText = document.getElementsByClassName('modal-users-error__text')[0];
   this.errorAbminImg = document.getElementsByClassName('modal-admin-error__logo')[0];
   this.errorAdminText = document.getElementsByClassName('modal-admin-error__text')[0];
-  this._status = false;
   this.inin();
 };
 
